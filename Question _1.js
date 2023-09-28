@@ -23,14 +23,24 @@ const server=http.createServer((request,response)=>{
          response.end(res);
     
    }else if(request.url=='/women'){
-      var res=fs.readFileSync("data1.json");
-      
-      console.log(res.toString());
-      console.log("Other Stuff First");
-      response.statusCode=500;
-        response.setHeader('Content-Type','application/json');
+    
+      fs.readFile("data1.json",(err,res)=>{
+         
+         if(err){
+            response.end('error occured');
+         }else{
+         console.log(res.toString());
+          
+          
+         response.statusCode=500;
+         response.setHeader('Content-Type','application/json');
+   
+            response.end(res);
+         }
 
-         response.end(res);
+      });
+      
+      
 
    }else{
       response.end('no server found');
